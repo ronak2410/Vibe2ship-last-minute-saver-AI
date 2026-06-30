@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Clock, Plus, Zap, CheckCircle2, Bot, Target, BarChart2 } from 'lucide-react'
+import { Clock, Plus, Zap, CheckCircle2, Bot, Target, BarChart2, ChevronDown } from 'lucide-react'
 import { getNextBestAction } from './ai'
 import './App.css'
 
@@ -14,6 +14,7 @@ function App() {
   const [newTaskDeadline, setNewTaskDeadline] = useState("")
   const [newTaskPriority, setNewTaskPriority] = useState("Medium")
   const [focusMode, setFocusMode] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
 
   useEffect(() => {
     const fetchAiAdvice = async () => {
@@ -80,7 +81,12 @@ function App() {
   const displayedTasks = focusMode && sortedTasks.length > 0 ? [sortedTasks[0]] : sortedTasks;
 
   return (
-    <div className="app-container">
+    <>
+      <div className="bg-glow-1"></div>
+      <div className="bg-glow-2"></div>
+      <div className="bg-glow-3"></div>
+      
+      <div className="app-container">
       <header className="header animate-slide-up">
         <div className="logo" style={{ textTransform: 'uppercase', letterSpacing: '2px', textShadow: 'var(--glow-primary)' }}>
           <Zap size={32} />
@@ -125,16 +131,31 @@ function App() {
                   onChange={(e) => setNewTaskDeadline(e.target.value)}
                   required
                 />
-                <select 
-                  className="input" 
-                  style={{ flex: 1 }}
-                  value={newTaskPriority}
-                  onChange={(e) => setNewTaskPriority(e.target.value)}
-                >
-                  <option value="High">High Priority</option>
-                  <option value="Medium">Medium Priority</option>
-                  <option value="Low">Low Priority</option>
-                </select>
+                <div className="custom-select-container">
+                  <div 
+                    className={`custom-select-display ${dropdownOpen ? 'open' : ''}`}
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                  >
+                    <span>{newTaskPriority} Priority</span>
+                    <ChevronDown size={18} style={{ transform: dropdownOpen ? 'rotate(180deg)' : 'none', transition: '0.2s' }} />
+                  </div>
+                  {dropdownOpen && (
+                    <div className="custom-select-options">
+                      {['High', 'Medium', 'Low'].map(p => (
+                        <div 
+                          key={p}
+                          className="custom-select-option"
+                          onClick={() => {
+                            setNewTaskPriority(p);
+                            setDropdownOpen(false);
+                          }}
+                        >
+                          {p} Priority
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
                 <button type="submit" className="btn btn-primary" style={{ flex: '0 0 auto' }}>
                   <Plus size={18} /> Add
                 </button>
@@ -234,6 +255,7 @@ function App() {
         </section>
       </main>
     </div>
+    </>
   )
 }
 

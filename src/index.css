@@ -24,10 +24,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--bg-color);
-  background-image: 
-    radial-gradient(circle at 15% 50%, rgba(0, 240, 255, 0.08), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(0, 255, 170, 0.08), transparent 25%);
+  background-color: #030712;
   color: var(--text-main);
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -36,19 +33,40 @@ body {
   overflow-x: hidden;
 }
 
-body::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(45deg, rgba(0,0,0,0) 0%, rgba(0,240,255,0.03) 50%, rgba(0,0,0,0) 100%);
+/* Aesthetic Animated Glowing Background */
+.bg-glow-1, .bg-glow-2, .bg-glow-3 {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(100px);
   z-index: -1;
-  animation: bg-pan 15s infinite linear;
+  opacity: 0.5;
+  animation: float 20s infinite ease-in-out alternate;
 }
 
-@keyframes bg-pan {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.bg-glow-1 {
+  top: -10%; left: -10%;
+  width: 50vw; height: 50vw;
+  background: radial-gradient(circle, rgba(0,240,255,0.15) 0%, rgba(0,0,0,0) 70%);
+}
+
+.bg-glow-2 {
+  bottom: -10%; right: -10%;
+  width: 60vw; height: 60vw;
+  background: radial-gradient(circle, rgba(0,255,170,0.1) 0%, rgba(0,0,0,0) 70%);
+  animation-delay: -5s;
+}
+
+.bg-glow-3 {
+  top: 40%; left: 30%;
+  width: 40vw; height: 40vw;
+  background: radial-gradient(circle, rgba(255,0,85,0.08) 0%, rgba(0,0,0,0) 70%);
+  animation-duration: 25s;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(5%, 5%) scale(1.1); }
+  100% { transform: translate(-5%, -5%) scale(0.9); }
 }
 
 /* Glassmorphism utilities */
@@ -125,24 +143,60 @@ body::before {
   outline: none;
 }
 
-/* Custom Dropdown and Date Picker Styling */
-select.input {
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2300f0ff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1rem top 50%;
-  background-size: 0.65rem auto;
-  cursor: pointer;
+/* Custom Dropdown Styling */
+.custom-select-container {
+  position: relative;
+  flex: 1;
+  min-width: 140px;
 }
 
-select.input option {
-  background-color: var(--surface);
+.custom-select-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
   color: var(--text-main);
-  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.custom-select-display:hover, .custom-select-display.open {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.custom-select-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 0.5rem;
+  background-color: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 50;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  backdrop-filter: blur(10px);
+}
+
+.custom-select-option {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.custom-select-option:hover {
+  background-color: rgba(0, 240, 255, 0.1);
+  color: var(--primary);
 }
 
 input[type="datetime-local"].input {
   cursor: text;
+  color: var(--text-main);
 }
 
 input[type="datetime-local"]::-webkit-calendar-picker-indicator {
@@ -150,10 +204,14 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   filter: invert(1) sepia(1) saturate(5) hue-rotate(135deg) brightness(1.5);
   opacity: 0.8;
   transition: 0.3s;
+  background-color: transparent;
+  padding: 5px;
+  border-radius: 4px;
 }
 
 input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
   opacity: 1;
+  background-color: rgba(0, 240, 255, 0.1);
   filter: drop-shadow(0 0 5px var(--primary)) invert(1) sepia(1) saturate(5) hue-rotate(135deg) brightness(1.5);
 }
 
