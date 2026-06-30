@@ -1,4 +1,4 @@
-# The Last-Minute Life Saver
+# NEXUS
 
 ## 1. Problem Statement Selected
 
@@ -6,7 +6,7 @@
 
 ## 2. Solution Overview
 
-**The Last-Minute Life Saver** is a proactive, AI-powered productivity companion. Unlike traditional task managers that simply send a push notification when a deadline is approaching, this application actively intervenes to help users take meaningful action. By analyzing the user's pending tasks, the AI coach identifies the "Next Best Action," breaks down overwhelming tasks into bite-sized, manageable chunks, and recommends optimal times to work on them based on remaining time and task complexity.
+**NEXUS** is a proactive, AI-powered productivity companion. Unlike traditional task managers that simply send a push notification when a deadline is approaching, this application actively intervenes to help users take meaningful action. By analyzing the user's pending tasks, the AI coach identifies the "Next Best Action," breaks down overwhelming tasks into bite-sized, manageable chunks, and recommends optimal times to work on them based on remaining time and task complexity.
 
 Our focus is moving from *passive alerts* to *active decision-making support*, ensuring users do not just remember their deadlines, but actually meet them.
 

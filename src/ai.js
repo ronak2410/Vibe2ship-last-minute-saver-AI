@@ -20,7 +20,7 @@ export async function getNextBestAction(tasks) {
     
     Based on the deadlines and priority, identify the absolute most important task to work on RIGHT NOW. 
     Provide a short, actionable piece of advice (max 3 sentences). 
-    If a task is large or urgent, suggest breaking it down into 1 or 2 concrete subtasks.
+    CRITICAL: For the most urgent or largest task, you MUST automatically break it down into 2 to 3 concrete subtasks.
     
     You MUST respond in valid JSON format matching this schema exactly:
     {
@@ -28,9 +28,15 @@ export async function getNextBestAction(tasks) {
       "actions": [
         {
           "type": "ADD_TASK",
-          "title": "Title of the suggested subtask",
+          "title": "Subtask 1: [Actionable step]",
           "priority": "High",
-          "deadline": "2026-06-30T12:00" // Suggest a deadline that is slightly before the main task's deadline
+          "deadline": "2026-06-30T12:00"
+        },
+        {
+          "type": "ADD_TASK",
+          "title": "Subtask 2: [Actionable step]",
+          "priority": "Medium",
+          "deadline": "2026-06-30T14:00"
         }
       ]
     }
