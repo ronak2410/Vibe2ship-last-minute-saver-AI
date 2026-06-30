@@ -1,5 +1,6 @@
 FROM node:22-alpine AS builder
-
+RUN node -v
+RUN echo "Forcing cache invalidation 1"
 WORKDIR /app
 
 COPY package*.json ./
