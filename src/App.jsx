@@ -90,7 +90,7 @@ function App() {
       <header className="header animate-slide-up">
         <div className="logo" style={{ textTransform: 'uppercase', letterSpacing: '2px', textShadow: 'var(--glow-primary)' }}>
           <Zap size={32} />
-          NEXUS
+          <span className="logo-text">NEXUS</span>
         </div>
         <div style={{ display: 'flex', gap: '1rem' }}>
           <div className="glass" style={{ padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -210,7 +210,7 @@ function App() {
         </section>
 
         <section className="ai-section animate-slide-up" style={{ animationDelay: '0.2s' }}>
-          <div className="glass glass-panel" style={{ position: 'sticky', top: '2rem', borderTop: '2px solid var(--primary)' }}>
+          <div className="glass glass-panel pulse-border" style={{ position: 'sticky', top: '2rem', borderTop: '2px solid var(--primary)' }}>
             <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)', textShadow: 'var(--glow-primary)' }}>
               <Bot size={24} />
               NEXUS Core
